@@ -1,0 +1,9 @@
+I built and ran the project before implementing any of the tasks.
+While testing the Employee APIs with ThunderClient (Postman-esque VSCode extension),
+I noticed that some of the log messages didn't match the received request.
+
+The current implementation of ReportingStructureService depends on EmployeeService.
+An alternative could be to delegate the logic for computing a ReportingStructure to
+EmployeeService. A ReportingStructure is just data that can be derived from an employee. 
+This new approach would remove the service-to-service dependency that currently exists.
+

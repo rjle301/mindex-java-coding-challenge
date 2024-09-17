@@ -1,0 +1,10 @@
+# Directories
+.gradle/
+.vscode/
+build/
+gradle/
+
+# Files
+build.gradle
+gradlew
+gradle.bat

@@ -2,6 +2,9 @@ package com.mindex.challenge.data;
 
 public class ReportingStructure {
     private Employee employee;
+
+    // numberOfReports is the number of directReports for an employee
+    // and all of their distinct reports.
     private int numberOfReports;
 
     public ReportingStructure() {

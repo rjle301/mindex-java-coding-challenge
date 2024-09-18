@@ -13,6 +13,12 @@ import java.util.List;
 import java.util.Stack;
 import java.util.UUID;
 
+/**
+ * Implementation of the EmployeeService interface.
+ * It's purpose is to communicate with the persistence layer and
+ * handle the business logic for the ReportingStructure.
+ * Handles create, read, and update operations.
+ */
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 

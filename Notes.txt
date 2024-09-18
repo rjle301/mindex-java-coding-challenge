@@ -29,4 +29,4 @@ This probably is necessary because I'm not testing a separate branch in the no d
 Overall I feel good about this challenge. The tasks were straightfoward, minus not being familiar with
 MongoDB. I unfortunately spent more time that I would have liked trying to figure out why the response
 entities to requests I was testing in ThunderClient had all null fields. Turns out the content body I was
-sending wasn't formatted propely and it took me forever to notice.
+sending wasn't formatted properly and it took me forever to notice.

@@ -24,7 +24,7 @@ or to return a list of compensations for an employee when querying.
 
 Lastly, I made two unit tests that test computing a ReportingStructure. One for testing on
 an employee that has directReports, and another for an employee that doesn't have any directReports.
-This probably is necessary because I'm not testing a separate branch in the no direct reports test.
+This could probably be done in one method because I'm not testing a separate branch in the no direct reports test.
 
 Overall I feel good about this challenge. The tasks were straightfoward, minus not being familiar with
 MongoDB. I unfortunately spent more time that I would have liked trying to figure out why the response

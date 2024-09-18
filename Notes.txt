@@ -5,13 +5,19 @@ I also noticed that directReports for employees in the employee_database json fi
 of an employee's id, not that this is very important.
 
 The current implementation of EmployeeService also handles the business logic for
-ReportingSructures. Orginally, there was a ReportingStructureController and a 
+ReportingSructures. Orginally, I had a ReportingStructureController and a 
 ReportingStructureService. The ReportingStructureService depended on EmployeeService.
 I realized that an alternative could be to delegate the logic for computing a ReportingStructure 
-to EmployeeService. A ReportingStructure is just data that can be derived from an employee. 
+to EmployeeService. A ReportingStructure is just data that can be derived from an employee.
 This new approach removes the service-to-service dependency that existed, slightly cleaning up the
 codebase.
 
 I have never used MongoDB before, some google searching was involved to figure out how to
 implement the repository interface for the project to be able to run. Otherwise, Spring was unhappy.
 I doubt I did Task 2 correctly and would really appreciate any feedback.
+
+I kept getting a 500 Internal Server Error when testing POST requests for compensations.
+Turns out it was because I didn't have getters and setters in Compensation.java, which was originally
+because I implemented an argument constructor for compensation so I could avoid using getters and setters.
+I saw that Employee had a no-argument constructor so that's what I used in ReportingStructure.java in
+Task 1.

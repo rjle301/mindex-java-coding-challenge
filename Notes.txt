@@ -2,7 +2,7 @@ I built and ran the project before implementing any of the tasks.
 While testing the Employee APIs with ThunderClient (Postman-esque VSCode extension),
 I noticed that some of the log messages didn't match the received request. I fixed this issue.
 I also noticed that directReports for employees in the employee_database json file only consist
-of an employee's id, not that this is very important.
+of an employee's id. This affected how a numberOfReports for a ReportingStructure is calculated.
 
 The current implementation of EmployeeService also handles the business logic for
 ReportingSructures. Orginally, I had a ReportingStructureController and a 
@@ -16,8 +16,17 @@ I have never used MongoDB before, some google searching was involved to figure o
 implement the repository interface for the project to be able to run. Otherwise, Spring was unhappy.
 I doubt I did Task 2 correctly and would really appreciate any feedback.
 
-I kept getting a 500 Internal Server Error when testing POST requests for compensations.
-Turns out it was because I didn't have getters and setters in Compensation.java, which was originally
-because I implemented an argument constructor for compensation so I could avoid using getters and setters.
-I saw that Employee had a no-argument constructor so that's what I used in ReportingStructure.java in
-Task 1.
+It is possible to have two compensations in the database with the same employeeId. Say an employee gets 
+hired and has X salary. Two years later they are promoted and now have Y salary. With the existing Compensation
+implementation only handling creates and reads, there would be two Compensation entries with matching
+employeeIds and differing salaries and effectiveDates. A better strategy would be either to handle update requests
+or to return a list of compensations for an employee when querying.
+
+Lastly, I made two unit tests that test computing a ReportingStructure. One for testing on
+an employee that has directReports, and another for an employee that doesn't have any directReports.
+This probably is necessary because I'm not testing a separate branch in the no direct reports test.
+
+Overall I feel good about this challenge. The tasks were straightfoward, minus not being familiar with
+MongoDB. I unfortunately spent more time that I would have liked trying to figure out why the response
+entities to requests I was testing in ThunderClient had all null fields. Turns out the content body I was
+sending wasn't formatted propely and it took me forever to notice.

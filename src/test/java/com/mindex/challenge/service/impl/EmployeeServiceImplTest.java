@@ -27,6 +27,7 @@ public class EmployeeServiceImplTest {
 
     private String employeeUrl;
     private String employeeIdUrl;
+    private String employeeIdReportURL;
 
     @Autowired
     private EmployeeService employeeService;
@@ -41,6 +42,7 @@ public class EmployeeServiceImplTest {
     public void setup() {
         employeeUrl = "http://localhost:" + port + "/employee";
         employeeIdUrl = "http://localhost:" + port + "/employee/{id}";
+        employeeIdReportURL = "http://localhost:" + port + "/employee/{id}/report";
     }
 
     @Test
@@ -81,8 +83,10 @@ public class EmployeeServiceImplTest {
     }
 
     @Test
-    public void testCompute() {
+    public void testComputeHasDirectReports() {
 
+        // Using employee data that exists in the database snapshot because we don't
+        // need to test create and read to test compute. They have their own unit test.
         Employee testEmployee1 = new Employee();
         testEmployee1.setEmployeeId("16a596ae-edd3-4847-99fe-c4518e82c86f");
         testEmployee1.setFirstName("John");
@@ -105,8 +109,27 @@ public class EmployeeServiceImplTest {
         testReportingStructure.setNumberOfReports(expected);
 
 
-        // Compute checks
-        ReportingStructure createdReportingStructure = employeeService.compute(testEmployee1.getEmployeeId());
+        // Compute check 1
+        ReportingStructure createdReportingStructure = restTemplate.getForEntity(employeeIdReportURL, ReportingStructure.class, testEmployee1.getEmployeeId()).getBody();
+        assertReportingStructureEquivalence(testReportingStructure, createdReportingStructure);
+    }
+
+    @Test
+    public void testComputeNoDirectReports() {
+        int expected = 0;
+        Employee testEmployee = new Employee();
+        testEmployee.setEmployeeId("62c1084e-6e34-4630-93fd-9153afb65309");
+        testEmployee.setFirstName("Pete");
+        testEmployee.setLastName("Best");
+        testEmployee.setPosition("Developer II");
+        testEmployee.setDepartment("Engineering");
+
+        ReportingStructure testReportingStructure = new ReportingStructure();
+        testReportingStructure.setEmployee(testEmployee);
+        testReportingStructure.setNumberOfReports(expected);
+
+        // Compute Check 2
+        ReportingStructure createdReportingStructure = restTemplate.getForEntity(employeeIdReportURL, ReportingStructure.class, testEmployee.getEmployeeId()).getBody();
         assertReportingStructureEquivalence(testReportingStructure, createdReportingStructure);
     }
 

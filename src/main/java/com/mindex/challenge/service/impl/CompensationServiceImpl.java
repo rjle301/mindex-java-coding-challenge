@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 
+ * Service implementation for Compensation.
+ * It's purpose is to communicate with the persistence layer.
+ * Handles simple create and read operations.
  */
 @Service
 public class CompensationServiceImpl implements CompensationService {

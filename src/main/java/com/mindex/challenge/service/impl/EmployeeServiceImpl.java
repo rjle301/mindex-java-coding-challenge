@@ -56,13 +56,13 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public ReportingStructure compute(String id) {
-        LOG.debug("Computing a ReportingStructure for employee with id [{}]", id);
+        LOG.debug("Computing a ReportingStructure for employee [{}]", id);
 
         ReportingStructure reportingStructure = new ReportingStructure();
 
-        Employee employee = read(id);
+        // An invalid ID will be handled inside of read
+        Employee employee = read(id);   
         reportingStructure.setEmployee(employee);
-        
         int numberOfReports = calculateNumberOfReports(employee);
         reportingStructure.setNumberOfReports(numberOfReports);
 

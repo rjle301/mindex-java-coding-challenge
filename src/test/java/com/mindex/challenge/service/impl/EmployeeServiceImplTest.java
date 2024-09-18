@@ -1,7 +1,10 @@
 package com.mindex.challenge.service.impl;
 
+import java.util.List;
+import java.util.ArrayList;
 import com.mindex.challenge.data.Employee;
 import com.mindex.challenge.service.EmployeeService;
+import com.mindex.challenge.data.ReportingStructure;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -77,10 +80,45 @@ public class EmployeeServiceImplTest {
         assertEmployeeEquivalence(readEmployee, updatedEmployee);
     }
 
+    @Test
+    public void testCompute() {
+
+        Employee testEmployee1 = new Employee();
+        testEmployee1.setEmployeeId("16a596ae-edd3-4847-99fe-c4518e82c86f");
+        testEmployee1.setFirstName("John");
+        testEmployee1.setLastName("Lennon");
+        testEmployee1.setPosition("Development Manager");
+        testEmployee1.setDepartment("Engineering");
+
+        Employee testEmployee2 = new Employee();
+        testEmployee2.setEmployeeId("b7839309-3348-463b-a7e3-5de1c168beb3");
+        Employee testEmployee3 = new Employee();
+        testEmployee3.setEmployeeId("03aa1462-ffa9-4978-901b-7c001562cf6f");
+        List<Employee> directReports = new ArrayList<Employee>();
+        directReports.add(testEmployee2);
+        directReports.add(testEmployee3);
+        testEmployee1.setDirectReports(directReports);
+        
+        int expected = 4;
+        ReportingStructure testReportingStructure = new ReportingStructure();
+        testReportingStructure.setEmployee(testEmployee1);
+        testReportingStructure.setNumberOfReports(expected);
+
+
+        // Compute checks
+        ReportingStructure createdReportingStructure = employeeService.compute(testEmployee1.getEmployeeId());
+        assertReportingStructureEquivalence(testReportingStructure, createdReportingStructure);
+    }
+
     private static void assertEmployeeEquivalence(Employee expected, Employee actual) {
         assertEquals(expected.getFirstName(), actual.getFirstName());
         assertEquals(expected.getLastName(), actual.getLastName());
         assertEquals(expected.getDepartment(), actual.getDepartment());
         assertEquals(expected.getPosition(), actual.getPosition());
+    }
+
+    private static void assertReportingStructureEquivalence(ReportingStructure expected, ReportingStructure actual) {
+        assertEmployeeEquivalence(expected.getEmployee(), actual.getEmployee());
+        assertEquals(expected.getNumberOfReports(), actual.getNumberOfReports());
     }
 }
